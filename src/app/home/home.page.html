@@ -1,20 +1,92 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<!-- Ini untuk modal tambah -->
+<ion-modal [isOpen]="modal_tambah">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Batal</ion-button>
+        </ion-buttons>
+        <ion-title>Tambah Mahasiswa</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-input label="Nama" labelPlacement="floating" required [(ngModel)]="nama" placeholder="Masukkan nama" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Nomor HP" labelPlacement="floating" required [(ngModel)]="nomor_hp" placeholder="Masukkan nomor HP" type="text"></ion-input>
+      </ion-item>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" (click)="tambahKontak()" color="primary" shape="full" expand="block">
+            Tambah Kontak
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+<!-- Ini untuk modal edit -->
+<ion-modal [isOpen]="modal_edit">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button (click)="cancel()">Batal</ion-button>
+        </ion-buttons>
+        <ion-title>Edit Kontak</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-item>
+        <ion-input label="Nama" labelPlacement="floating" required [(ngModel)]="nama" placeholder="Masukkan nama" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Nomor HP" labelPlacement="floating" required [(ngModel)]="nomor_hp" placeholder="Masukkan nomor HP" type="text"></ion-input>
+      </ion-item>
+      <ion-input required [(ngModel)]="id_kontak" type="hidden"></ion-input>
+      <ion-row>
+        <ion-col>
+          <ion-button type="button" (click)="editKontak()" color="primary" shape="full" expand="block">
+            Edit Kontak
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-content>
+  </ng-template>
+</ion-modal>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="logout()" fill="solid" color="warning">
+          Logout
+        </ion-button>
+      </ion-buttons>
+      <ion-title size="large">Daftar Kontak</ion-title>
     </ion-toolbar>
   </ion-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <ion-card>
+    <ion-button (click)="open_modal_tambah(true)" expand="block">
+      Tambah Kontak
+    </ion-button>
+  </ion-card>
+
+  <ion-card *ngFor="let item of dataKontak">
+    <ion-item>
+      <ion-label>
+        {{item.nama}}
+        <p>{{item.nomor_hp}}</p>
+      </ion-label>
+      <ion-button expand="block" (click)="open_modal_edit(true,item.id)">
+        Edit
+      </ion-button>
+      <ion-button color="danger" slot="end" (click)="hapusKontak(item.id)" expand="">
+        Hapus
+      </ion-button>
+    </ion-item>
+  </ion-card>
 </ion-content>
