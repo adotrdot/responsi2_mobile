@@ -1,0 +1,7 @@
+{
+  "name": "responsi2_mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
